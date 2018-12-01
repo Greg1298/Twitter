@@ -35,5 +35,30 @@ function getAllTweets(){
 	return Alltweets;
 }
 
+//Retourne un tableau comportant tous les HashTags différents de tous les Tweets
+function getAllHashTags(tableaudetweets){
+
+	let TousleshashTags = [];
+	let tabHashTagsduntweet = [];
+
+	for(var k = 0; k < tableaudetweets.length; k++){
+		ht = tableaudetweets[k].hashtags;
+		tabHashTagsduntweet = ht.split(" ");
+		tabHashTagsduntweet.forEach(function(unhashtagduntweet) {
+			contain = false;
+			TousleshashTags.forEach(function(entree){
+				if(entree.toLowerCase().indexOf(unhashtagduntweet.toLowerCase()) != -1){
+					contain = true;
+				}
+			});
+			if(contain == false && unhashtagduntweet != ""){
+		  		TousleshashTags.push(unhashtagduntweet);
+			}
+		});
+	}
+	return TousleshashTags;
+}
+
 
 module.exports.getAllTweets = getAllTweets;
+module.exports.getAllHashTags = getAllHashTags;
