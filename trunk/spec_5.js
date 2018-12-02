@@ -4,7 +4,7 @@ const program = require('caporal');
 exports.module = require('caporal')
 
 	.command("getLocatedTweets", "Retourne le nombre de Tweets ayant été postés depuis la localisation saisie.")
-	.argument("<location>", "Entrez une localisation pour connaître le nombre de Tweets postés depuis celle-ci.")
+	.argument("<location>", "Entrez une localisation pour connaître le nombre de Tweets postés depuis celle-ci. Ex : England")
 
 	.action(function (args, options, logger){
 		console.log(getLocatedTweets(args.location) + " tweets ont été postés depuis \"" + args.location + "\"");
