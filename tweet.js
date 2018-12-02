@@ -59,6 +59,5 @@ function getAllHashTags(tableaudetweets){
 	return TousleshashTags;
 }
 
-
 module.exports.getAllTweets = getAllTweets;
 module.exports.getAllHashTags = getAllHashTags;
