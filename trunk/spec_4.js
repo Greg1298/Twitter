@@ -1,5 +1,6 @@
 const Tweets = require("./tweet.js");
 const program = require('caporal');
+const fs = require('fs');
 
 exports.module = require('caporal')
 
@@ -7,8 +8,22 @@ exports.module = require('caporal')
 	.argument("<hashtag>", "Entrez un HashTag dont vous cherchez les relations.")
 
 	.action(function (args, options, logger){
+		rs = getRelatedHashtags(args.hashtag);
+		rs.sort();
 		console.log("Les HashTags associés au HashTag \"" + args.hashtag + "\" sont :");
-		console.log(getRelatedHashtags(args.hashtag));
+		console.log(rs);
+
+		let stresult = "Les HashTags associés au HashTag \"" + args.hashtag + "\" sont :";
+		rs.forEach(element => {
+			stresult = stresult.concat("\r\n");
+			stresult = stresult.concat(element);
+			stresult = stresult.concat(",");
+		});
+
+		fs.writeFile('relatedHashtags.txt', stresult, function (err) {
+			if (err) throw err;
+			console.log("Un fichier comportant le résultat de la requête a été généré !");
+		});
 	})
 
 program.parse(process.argv);
