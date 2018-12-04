@@ -8,12 +8,16 @@ exports.module = require('caporal')
 
 	.action(function (args, options, logger){
 		rs = getAuteurPopulaireAvecTagPopulaire(TagPlusPopulaire());
-
+		console.log(rs);
+		
 		let stresult = "Les auteurs associés au HashTag le plus populaire \"" + TagPlusPopulaire() + "\" sont :";
-		rs.forEach(element => {
+		rs.forEach(function(value, key)  {
 			stresult = stresult.concat("\r\n");
-			stresult = stresult.concat(element);
+			stresult = stresult.concat(key);
+			stresult = stresult.concat(" with the amount of retweet of : ");
+			stresult = stresult.concat(value);
 			stresult = stresult.concat(",");
+	
 		});
 
 		fs.writeFile('10AutuersPopulaireAvecTagPopulaire.txt', stresult, function (err) {
@@ -139,7 +143,7 @@ for(var k = 0; k < allTweets.length; k++){
 		});
 		};
 
-var Auteurtop10 = new Array();
+var Auteurtop10 = new Map();
 for(var i = 0; i <= 9 ; i++){
 	maxpop = 0;
 	maxauteur ="";
@@ -149,7 +153,7 @@ TagsChanqueAuteur.forEach(function(value, key){
 		maxauteur = key;
 	}
 });
-Auteurtop10.push(maxauteur);
+Auteurtop10.set(maxauteur,maxpop);
 TagsChanqueAuteur.delete(maxauteur);
 }
 
