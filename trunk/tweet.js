@@ -56,8 +56,9 @@ function getAllHashTags(tableaudetweets){
 			}
 		});
 	}
-	return TousleshashTags;
+	return TousleshashTags.sort();
 }
+
 
 module.exports.getAllTweets = getAllTweets;
 module.exports.getAllHashTags = getAllHashTags;
