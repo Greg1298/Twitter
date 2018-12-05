@@ -57,3 +57,4 @@ function getNbTweet(tag, debut, fin){
     var nbTweet = tweetSelected.length;
     return nbTweet;
 }
+module.exports.getNbTweet = getNbTweet;
