@@ -1,3 +1,4 @@
+const spec_1 = require("./spec_1.js")
 const SPEC_2 = require("./spec_2.js")
 const SPEC_3 = require("./spec_3.js")
 const spec_4 = require("./spec_4.js");
@@ -7,6 +8,17 @@ const fs = require('fs');
 
 exports.module = require('caporal')
 
+	//SPEC_1
+	.command("getNbTweet", "Retourne le nombre de Tweet comportant le hashtag choisi.")
+	.argument("<hashtag>", "Entrez un HashTag dont vous voulez connaître le nombre de Tweet.")
+    .argument("<dateDebut>", "Entrer la date du début de la période recherchée au format AAAA/MM/JJ/HH/mm/ss.")
+    .argument("<dateFin>", "Entrer la date de fin de la période recherchée au format AAAA/MM/JJ/HH/mm/ss.")
+	.action(function (args, options, logger){
+		rs = spec_1.getNbTweet(args.hashtag, args.dateDebut, args.dateFin);
+		console.log("Le nombre de Tweets associés au HashTag \"" + args.hashtag + "\" entre le "+ args.dateDebut +" et "+ args.dateFin + " sont :");
+		console.log(rs);
+
+	})
 
 	//SPEC_2
 	.command("get10TweetPopulaireAvecTagPopulaire", "Consulter le top 10 des tweets comportant le hashtag ayant été le plus retweeté")
