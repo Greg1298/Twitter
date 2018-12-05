@@ -11,10 +11,10 @@ exports.module = require('caporal')
 	//SPEC_2
 	.command("get10TweetPopulaireAvecTagPopulaire", "Consulter le top 10 des tweets comportant le hashtag ayant été le plus retweeté")
 	.action(function (args, options, logger){
-		rs = SPEC_2.get10TweetPopulaireAvecTagPopulaire(TagPlusPopulaire());
+		rs = SPEC_2.get10TweetPopulaireAvecTagPopulaire(SPEC_2.TagPlusPopulaire());
 		console.log(rs);
 
-		let stresult = "Les 10 tweets associés au HashTag le plus populaire \"" + TagPlusPopulaire() + "\" sont :";
+		let stresult = "Les 10 tweets associés au HashTag le plus populaire \"" + SPEC_2.TagPlusPopulaire() + "\" sont :";
 		rs.forEach(element => {
 			stresult = stresult.concat("\r\n");
 			stresult = stresult.concat(element.tweet_url);
@@ -45,7 +45,7 @@ exports.module = require('caporal')
 	
 		});
 
-		fs.writeFile('10AutuersPopulaireAvecTagPopulaire.txt', stresult, function (err) {
+		fs.writeFile('10AuteursPopulaireAvecTagPopulaire.txt', stresult, function (err) {
 			if (err) throw err;
 			console.log("Un fichier comportant le résultat de la requête a été généré !");
 		});
