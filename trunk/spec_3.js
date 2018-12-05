@@ -14,7 +14,7 @@ exports.module = require('caporal')
 		rs.forEach(function(value, key)  {
 			stresult = stresult.concat("\r\n");
 			stresult = stresult.concat(key);
-			stresult = stresult.concat(" with the amount of retweet of : ");
+			stresult = stresult.concat(",");
 			stresult = stresult.concat(value);
 			stresult = stresult.concat(",");
 	
