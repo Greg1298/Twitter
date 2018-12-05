@@ -1,29 +1,4 @@
 const Tweets = require("./tweet.js");
-const program = require('caporal');
-const fs = require('fs');
-
-exports.module = require('caporal')
-
-	.command("get10TweetPopulaireAvecTagPopulaire", "Consulter le top 10 des tweets comportant le hashtag ayant été le plus retweeté")
-
-	.action(function (args, options, logger){
-		rs = get10TweetPopulaireAvecTagPopulaire(TagPlusPopulaire());
-		console.log(rs);
-
-		let stresult = "Les 10 tweets associés au HashTag le plus populaire \"" + TagPlusPopulaire() + "\" sont :";
-		rs.forEach(element => {
-			stresult = stresult.concat("\r\n");
-			stresult = stresult.concat(element.tweet_url);
-			stresult = stresult.concat(",");
-			stresult = stresult.concat(element.retweet_count);
-			stresult = stresult.concat(",");
-		});
-
-		fs.writeFile('10TweetPopulaireAvecTagPopulaire.txt', stresult, function (err) {
-			if (err) throw err;
-			console.log("Un fichier comportant le résultat de la requête a été généré !");
-		});
-	})
 
 
 function TagPlusPopulaire(){
@@ -127,8 +102,7 @@ for(var i = 0; i <= 9; i++){
 return resultats;
 }
 
-program.parse(process.argv);
-
-	
+module.exports.get10TweetPopulaireAvecTagPopulaire = get10TweetPopulaireAvecTagPopulaire;
+module.exports.TagPlusPopulaire = TagPlusPopulaire;
 
 		
