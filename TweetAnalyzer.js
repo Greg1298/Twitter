@@ -1,3 +1,5 @@
+const SPEC_2 = require("./spec_2.js")
+const SPEC_3 = require("./spec_3.js")
 const spec_4 = require("./spec_4.js");
 const spec_5 = require("./spec_5.js");
 const program = require('caporal');
@@ -5,6 +7,49 @@ const fs = require('fs');
 
 exports.module = require('caporal')
 
+
+	//SPEC_2
+	.command("get10TweetPopulaireAvecTagPopulaire", "Consulter le top 10 des tweets comportant le hashtag ayant été le plus retweeté")
+	.action(function (args, options, logger){
+		rs = SPEC_2.get10TweetPopulaireAvecTagPopulaire(TagPlusPopulaire());
+		console.log(rs);
+
+		let stresult = "Les 10 tweets associés au HashTag le plus populaire \"" + TagPlusPopulaire() + "\" sont :";
+		rs.forEach(element => {
+			stresult = stresult.concat("\r\n");
+			stresult = stresult.concat(element.tweet_url);
+			stresult = stresult.concat(",");
+			stresult = stresult.concat(element.retweet_count);
+			stresult = stresult.concat(",");
+		});
+
+		fs.writeFile('10TweetPopulaireAvecTagPopulaire.txt', stresult, function (err) {
+			if (err) throw err;
+			console.log("Un fichier comportant le résultat de la requête a été généré !");
+		});
+	})
+
+	//SPEC_3
+	.command("getAuteurPopulaireAvecTagPopulaire", "Consulter le top 10 des auteurs de tweets comportant le hashtag ayant été le plus retweeté")
+	.action(function (args, options, logger){
+		rs = SPEC_3.getAuteurPopulaireAvecTagPopulaire(SPEC_2.TagPlusPopulaire());
+		console.log(rs);
+		
+		let stresult = "Les auteurs associés au HashTag le plus populaire \"" + SPEC_2.TagPlusPopulaire() + "\" sont :";
+		rs.forEach(function(value, key)  {
+			stresult = stresult.concat("\r\n");
+			stresult = stresult.concat(key);
+			stresult = stresult.concat(",");
+			stresult = stresult.concat(value);
+			stresult = stresult.concat(",");
+	
+		});
+
+		fs.writeFile('10AutuersPopulaireAvecTagPopulaire.txt', stresult, function (err) {
+			if (err) throw err;
+			console.log("Un fichier comportant le résultat de la requête a été généré !");
+		});
+	})
 
     //SPEC_4
 	.command("getRelatedHashtags", "Retourne une liste de HashTags ayant été liés au HashTag recherché.")
