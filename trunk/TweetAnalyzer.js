@@ -40,7 +40,7 @@ exports.module = require('caporal')
 			stresult = stresult.concat(",");
 		});
 
-		fs.writeFile('10TweetPopulaireAvecTagPopulaire.html', stresult, function (err) {
+		fs.writeFile('10TweetPopulaireAvecTagPopulaire.txt', stresult, function (err) {
 			if (err) throw err;
 			console.log("Un fichier comportant le résultat de la requête a été généré !");
 		});
@@ -155,11 +155,31 @@ exports.module = require('caporal')
 	stresult = stresult.substring(0,stresult.length-1);
 	stresult = stresult.concat("]},\"mark\": \"bar\",\"encoding\": {\"x\": {\"field\": \"a\",\"type\": \"nominal\",\"axis\": {\"title\": \"Auteurs influents\"}},\"y\": {\"aggregate\": \"average\",\"field\": \"b\",\"type\": \"quantitative\",\"axis\": {\"title\": \"Nombre de tweets\"}}},\"config\": {\"axisY\": {\"minExtent\": 30}}};vegaEmbed(\"#vis\", vlspec);</script></body></html>");
 
-	fs.writeFile('visuTweets.html', stresult, function (err) {
+	fs.writeFile('VisuTweets.html', stresult, function (err) {
 	    if (err) throw err;
 	    console.log("Une page HTML comportant le résultat de la requête a été générée !");
 	})
 		
+	})
+
+	.command("visualizeTweetPopAvecTagPop", "Visualise les 10 tweets associés au HashTag le plus populaire")
+	.action(function (args, options, logger){
+
+	stresult = stresult.concat("<!DOCTYPE html><head><title>Visualisation tweets</title><meta charset=\"utf-8\"><script src=\"https://cdn.jsdelivr.net/npm/vega@4.3.0/build/vega.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc10/build/vega-lite.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/vega-embed@3.24.1/build/vega-embed.js\"></script><style media=\"screen\">.vega-actions a {margin-right: 5px;}</style></head><body><h1>Les 10 tweets associés au HashTag le plus populaire \"" + spec_2.TagPlusPopulaire() + "\" sont : </h1><div id=\"vis\"></div><script>var vlSpec = {\"$schema\": \"https://vega.github.io/schema/vega-lite/v3.json\",\"data\": {\"values\": [");
+
+	rs = spec_2.get10TweetPopulaireAvecTagPopulaire(spec_2.TagPlusPopulaire());
+	rs.forEach(element => {
+		stresult = stresult.concat("{\"a\": \"" + element.tweet_url + "\", \"b\": " + element.retweet_count + "},");
+				
+			});
+
+	stresult = stresult.substring(0,stresult.length-1);
+	stresult = stresult.concat("]},\"mark\": \"bar\",\"encoding\": {\"x\": {\"field\": \"a\",\"type\": \"nominal\",\"axis\": {\"title\": \"Les 10 tweets populaires associés au tag pop \"}},\"y\": {\"aggregate\": \"average\",\"field\": \"b\",\"type\": \"quantitative\",\"axis\": {\"title\": \"Nombre de retweets\"}}},\"config\": {\"axisY\": {\"minExtent\": 30}}};vegaEmbed(\"#vis\", vlSpec);</script></body></html>");
+
+	fs.writeFile('VisuHashtag.html', stresult, function (err) {
+	    if (err) throw err;
+	    console.log("Une page HTML comportant le résultat de la requête a été générée !");
+	})
 	});
 
 
