@@ -1,7 +1,7 @@
 const Tweets = require("./tweet.js");
 
 
-function getListeTweets(){
+function getListeTweetSurFichier(){
 
 	var allTweets = Tweets.getAllTweets();
 	var allHashTags =  Tweets.getAllHashTags(allTweets);
@@ -30,4 +30,4 @@ function getListeTweets(){
 	return listeOrdonnée;
 }
 
-module.exports.getListeTweets = getListeTweets;
+module.exports.getListeTweetSurFichier = getListeTweetSurFichier;
