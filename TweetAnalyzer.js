@@ -3,12 +3,15 @@ const spec_2 = require("./spec_2.js");
 const spec_3 = require("./spec_3.js");
 const spec_4 = require("./spec_4.js");
 const spec_5 = require("./spec_5.js");
+const spec_6 = require("./spec_6.js");
+const spec_8 = require("./spec_8.js");
 const program = require('caporal');
 const fs = require('fs');
 const Tweets = require("./tweet.js");
 let stresult = "";
 
 exports.module = require('caporal')
+
 
 	//spec_1
 	.command("getNbTweet", "Retourne le nombre de Tweet comportant le hashtag choisi.")
@@ -95,6 +98,48 @@ exports.module = require('caporal')
 		console.log(spec_5.getLocatedTweets(args.location) + " tweets ont été postés depuis \"" + args.location + "\"");
 	})
 
+	//spec_6
+	.command("getListeTweets", "Consulter les tweets classés par hashtag")
+	.action(function (args, options, logger){
+		rs = spec_6.getListeTweets();
+		console.log("Le liste des tweets rangés par hashtags :");
+		var allTweet = Tweets.getAllTweets();
+		var allHash = Tweets.getAllHashTags(allTweet);
+		for(var k = 0; k < allHash.length; k++){
+			console.log("\nHashtags : " + allHash[k] + "\n");
+			console.log(rs[k]);
+		}
+	})
+	
+
+	//spec_8
+	.command("getListeTweetSurFichier", "Création d'un fichier textes où son répertoriés les tweets classés par hashtag")
+	.action(function (args, options, logger){
+		rs = spec_8.getListeTweetSurFichier();
+		console.log("Le liste des tweets rangés par hashtags :");
+		var allTweet = Tweets.getAllTweets();
+		var allHash = Tweets.getAllHashTags(allTweet);
+		for(var k = 0; k < allHash.length; k++){
+			console.log("\nHashtags : " + allHash[k] + "\n");
+			console.log(rs[k]);
+		}
+
+		let stresult = "Le liste des tweets rangés par hashtags :";
+		rs.forEach(function(value, key)  {
+			stresult = stresult.concat("\r\nHashtag : ");
+			stresult = stresult.concat(allHash[key]);
+			stresult = stresult.concat("\r\n\r\n");
+			stresult = stresult.concat(value);
+			stresult = stresult.concat("\r\n\r\n");
+	
+		});
+
+		fs.writeFile('ListeTweetsParHashtag.txt', stresult, function (err) {
+			if (err) throw err;
+			console.log("Un fichier comportant le résultat de la requête a été généré !");
+		});
+	})
+
 	//spec_9
 	.command("visualizeAuteurPopAvecTagPop", "Visualise le top 10 des auteurs de tweets comportant le hashtag ayant été le plus retweeté")
 	.action(function (args, options, logger){
@@ -116,6 +161,9 @@ exports.module = require('caporal')
 	})
 		
 	});
+
+
+	
 
 	
 program.parse(process.argv);
