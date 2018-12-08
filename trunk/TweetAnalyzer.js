@@ -3,8 +3,8 @@ const spec_2 = require("./spec_2.js");
 const spec_3 = require("./spec_3.js");
 const spec_4 = require("./spec_4.js");
 const spec_5 = require("./spec_5.js");
-const spec_5 = require("./spec_7.js");
 const spec_6 = require("./spec_6.js");
+const spec_7 = require("./spec_7.js");
 const spec_8 = require("./spec_8.js");
 const program = require('caporal');
 const fs = require('fs');
@@ -71,7 +71,7 @@ exports.module = require('caporal')
 
     //spec_4
 	.command("getRelatedHashtags", "Retourne une liste de HashTags ayant été liés au HashTag recherché.")
-	.argument("<hashtag>", "Entrez un HashTag dont vous cherchez les relations.")
+	.argument("<hashtag>", "Entrez un HashTag dont vous cherchez les relations. (Ex : eaw18)")
 
 	.action(function (args, options, logger){
 		rs = spec_4.getRelatedHashtags(args.hashtag);
@@ -185,7 +185,7 @@ exports.module = require('caporal')
 
 	fs.writeFile('VisuTweets.html', stresult, function (err) {
 	    if (err) throw err;
-	    console.log("Une page HTML comportant le résultat de la requête a été générée !");
+	    console.log("Une page HTML (VisuTweets.html) comportant le résultat de la requête a été générée !");
 	})
 		
 	})
@@ -206,7 +206,7 @@ exports.module = require('caporal')
 
 	fs.writeFile('VisuHashtag.html', stresult, function (err) {
 	    if (err) throw err;
-	    console.log("Une page HTML comportant le résultat de la requête a été générée !");
+	    console.log("Une page HTML (VisuHashtag.html) comportant le résultat de la requête a été générée !");
 	})
 	});
 
