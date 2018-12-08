@@ -3,6 +3,7 @@ const spec_2 = require("./spec_2.js");
 const spec_3 = require("./spec_3.js");
 const spec_4 = require("./spec_4.js");
 const spec_5 = require("./spec_5.js");
+const spec_5 = require("./spec_7.js");
 const spec_6 = require("./spec_6.js");
 const spec_8 = require("./spec_8.js");
 const program = require('caporal');
@@ -109,6 +110,33 @@ exports.module = require('caporal')
 			console.log("\nHashtags : " + allHash[k] + "\n");
 			console.log(rs[k]);
 		}
+	})
+	
+	//spec_7
+	.command("getTweet", "Retourne les tweet correspondant aux critères.")
+	.argument("[hashtag]", "Entrez un HashTag ou X pour ne pas rentrer de Hashtag.")
+    .argument("[dateDebut]", "Entrer la date du début de la période recherchée au format AAAA/MM/JJ/HH/mm/ss ou X pour ne pas rentrer de date.")
+    .argument("[dateFin]", "Entrer la date de fin de la période recherchée au format AAAA/MM/JJ/HH/mm/ss ou X pour ne pas rentrer de date.")
+    .argument("[auteur]", "Entrer l'auteur ou X pour ne pas rentrer d'auteur.")
+	.action(function (args, options, logger){
+		rs = spec_7.getTweet(args.hashtag, args.dateDebut, args.dateFin, args.auteur);
+		console.log("Les Tweets associés au HashTag \"" + args.hashtag + "\" entre le "+ args.dateDebut + " et "+ args.dateFin + "et écrit par" + args.auteur +" sont :");
+		console.log(rs);
+        let stresult = "Les tweets qui corespondent :";
+		rs.forEach(element => {
+			stresult = stresult.concat("\r\n");
+			stresult = stresult.concat(element);
+			stresult = stresult.concat(",");
+			stresult = stresult.concat("\r\n");
+			stresult = stresult.concat("===========================");
+		});
+
+		fs.writeFile('TweetsCorrespondant.txt', stresult, function (err) {
+			if (err) throw err;
+			console.log("Un fichier comportant le résultat de la requête a été généré !");
+		});
+
+
 	})
 	
 
