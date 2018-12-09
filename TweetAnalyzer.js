@@ -126,7 +126,7 @@ exports.module = require('caporal')
         let stresult = "Les tweets qui corespondent :";
 		rs.forEach(element => {
 			stresult = stresult.concat("\r\n");
-			stresult = stresult.concat(element);
+			stresult = stresult.concat(element.tweet_url);
 			stresult = stresult.concat(",");
 			stresult = stresult.concat("\r\n");
 			stresult = stresult.concat("===========================");
