@@ -58,7 +58,7 @@ function getTweet(tag, debut, fin, auteur) {
         var y = 0;
         for(y=0; y<tweetTags[i].length; y++) {
             if (timeSecondDeb<timeSeconde && timeSeconde<timeSecondFin && tweetTags[i][y].toLowerCase()==tag.toLowerCase() && tweetName==auteur) {
-            tweetSelected[x] = allTweets[i].text + "\r\n" + allTweets[i].created_at + "\r\n" + allTweets[i].favorite_count + "-> J'aime" + "\r\n" + allTweets[i].user_name;
+            tweetSelected[x] = allTweets[i];
             x++;
             }
         } 
@@ -67,14 +67,14 @@ function getTweet(tag, debut, fin, auteur) {
 			var y = 0;
 			for(y=0; y<tweetTags[i].length; y++) {
 				if (timeSecondDeb<timeSeconde && timeSeconde<timeSecondFin && tweetTags[i][y].toLowerCase()==tag.toLowerCase()) {
-				tweetSelected[x] = allTweets[i].text + "\r\n" + allTweets[i].created_at + "\r\n" + allTweets[i].favorite_count + "-> J'aime" + allTweets[i].user_name;
+				tweetSelected[x] = allTweets[i];
 				x++;
 				}
 			}
 		} //Si le tweet est dans la période définie et est écrit par l'auteur, il va dans tweetSelected
 		else if(debut!="X" && fin!="X" && tag=="X" && auteur!="X") {
 				if (timeSecondDeb<timeSeconde && timeSeconde<timeSecondFin && tweetName==auteur) {
-				tweetSelected[x] = allTweets[i].text + "\r\n" + allTweets[i].created_at + "\r\n" + allTweets[i].favorite_count + "-> J'aime" + "\r\n" + allTweets[i].user_name;
+				tweetSelected[x] = allTweets[i];
 				x++;
 				}
 		} 
@@ -83,14 +83,14 @@ function getTweet(tag, debut, fin, auteur) {
 			var y = 0;
 			for(y=0; y<tweetTags[i].length; y++) {
 				if (tweetTags[i][y].toLowerCase()==tag.toLowerCase() && tweetName==auteur) {
-				tweetSelected[x] = allTweets[i].text + "\r\n" + allTweets[i].created_at + "\r\n" + allTweets[i].favorite_count + "-> J'aime" + "\r\n" + allTweets[i].user_name;
+				tweetSelected[x] = allTweets[i];
 				x++;
 				}
 			}
 		} //Si le tweet est dans la période définie et possède l'auteur, il va dans tweetSelected
 		else if(debut=="X" && fin=="X" && tag=="X" && auteur!="X") {
 				if (tweetName==auteur) {
-				tweetSelected[x] = allTweets[i].text + "\r\n" + allTweets[i].created_at + "\r\n" + allTweets[i].favorite_count + "-> J'aime" + "\r\n" + allTweets[i].user_name;
+				tweetSelected[x] = allTweets[i];
 				x++;
             }
 		} //Si le tweet possède le hashtag, il va dans tweetSelected
@@ -98,14 +98,14 @@ function getTweet(tag, debut, fin, auteur) {
 			var y = 0;
 			for(y=0; y<tweetTags[i].length; y++) {
 				if (tweetTags[i][y].toLowerCase()==tag.toLowerCase()) {
-				tweetSelected[x] = allTweets[i].text + "\r\n" + allTweets[i].created_at + "\r\n" + allTweets[i].favorite_count + "-> J'aime" + "\r\n" + allTweets[i].user_name;
+				tweetSelected[x] = allTweets[i];
 				x++;
 				}
 			}
 		} //Si le tweet est dans la période définie, il va dans tweetSelected
 		else if(debut!="X" && fin!="X" && tag=="X" && auteur=="X") {	
 				if (timeSecondDeb<timeSeconde && timeSeconde<timeSecondFin) {
-				tweetSelected[x] = allTweets[i].text + "\r\n" + allTweets[i].created_at + "\r\n" + allTweets[i].favorite_count + "-> J'aime" + "\r\n" + allTweets[i].user_name;
+				tweetSelected[x] = allTweets[i];
 				x++;
 				}
 		}
