@@ -3,7 +3,7 @@ const spec_2 = require("./spec_2.js");
 const spec_3 = require("./spec_3.js");
 const spec_4 = require("./spec_4.js");
 const spec_5 = require("./spec_5.js");
-//const spec_7 = require("./spec_7.js");
+const spec_7 = require("./spec_7.js");
 const spec_6 = require("./spec_6.js");
 const spec_8 = require("./spec_8.js");
 const spec_9_1 = require("./spec_9_1.js");
@@ -121,7 +121,7 @@ exports.module = require('caporal')
     .argument("[auteur]", "Entrer l'auteur ou X pour ne pas rentrer d'auteur.")
 	.action(function (args, options, logger){
 		rs = spec_7.getTweet(args.hashtag, args.dateDebut, args.dateFin, args.auteur);
-		console.log("Les Tweets associés au HashTag \"" + args.hashtag + "\" entre le "+ args.dateDebut + " et "+ args.dateFin + "et écrit par" + args.auteur +" sont :");
+		console.log("Les Tweets associés au HashTag \"" + args.hashtag + "\" entre le "+ args.dateDebut + " et "+ args.dateFin + "et écrit par " + args.auteur +" sont :");
 		console.log(rs);
         let stresult = "Les tweets qui corespondent :";
 		rs.forEach(element => {
