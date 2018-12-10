@@ -1,7 +1,5 @@
 const Tweets = require("./tweet.js");
 const fs = require('fs');
-const spec_3 = require('./spec_3.js');
-const spec_2 = require('./spec_2.js');
 
 let AllTweets = Tweets.getAllTweets();
 let TabHashTags = Tweets.getAllHashTags(AllTweets);
@@ -50,9 +48,9 @@ function vizualizeTopTweets(){
     stresult = stresult.substring(0,stresult.length-1);
     stresult = stresult.concat("]},\"mark\": \"bar\", \"height\": \"600\", \"encoding\": {\"x\": {\"field\": \"a\",\"type\": \"nominal\",\"axis\": {\"title\": \"HashTags\"},\"scale\": {\"rangeStep\": 30}, \"sort\": []},\"y\": {\"aggregate\": \"average\",\"field\": \"b\",\"type\": \"quantitative\",\"axis\": {\"title\": \"Nombre de retweets\"}}},\"config\": {\"axisY\": {\"minExtent\": 30}}};vegaEmbed(\"#vis\", vlSpec);</script></body></html>");
     
-    fs.writeFile('visuTweets.html', stresult, function (err) {
+    fs.writeFile('visuTopHashTag.html', stresult, function (err) {
         if (err) throw err;
-        console.log("Une page HTML comportant le résultat de la requête a été générée !");
+        console.log("Une page HTML (visuTopHashTag.html) comportant le résultat de la requête a été générée !");
     });
 }
 
