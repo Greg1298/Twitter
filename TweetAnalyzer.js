@@ -1,16 +1,17 @@
-const spec_1 = require("./spec_1.js");
-const spec_2 = require("./spec_2.js");
-const spec_3 = require("./spec_3.js");
-const spec_4 = require("./spec_4.js");
-const spec_5 = require("./spec_5.js");
-const spec_6 = require("./spec_6.js");
-const spec_7 = require("./spec_7.js");
-const spec_8 = require("./spec_8.js");
-const spec_9_1 = require("./spec_9_1.js");
-const spec_9_2 = require("./spec_9_2.js");
+const spec_1 = require("./src/spec_1.js");
+const spec_2 = require("./src/spec_2.js");
+const spec_3 = require("./src/spec_3.js");
+const spec_4 = require("./src/spec_4.js");
+const spec_5 = require("./src/spec_5.js");
+const spec_6 = require("./src/spec_6.js");
+const spec_7 = require("./src/spec_7.js");
+const spec_8 = require("./src/spec_8.js");
+const spec_9_1 = require("./src/spec_9_1.js");
+const spec_9_2 = require("./src/spec_9_2.js");
+const spec_10 = require("./src/spec_10.js");
 const program = require('caporal');
 const fs = require('fs');
-const Tweets = require("./tweet.js");
+const Tweets = require("./src/tweet.js");
 let stresult = "";
 
 exports.module = require('caporal')
@@ -43,7 +44,7 @@ exports.module = require('caporal')
 			stresult = stresult.concat(",");
 		});
 
-		fs.writeFile('10TweetPopulaireAvecTagPopulaire.txt', stresult, function (err) {
+		fs.writeFile('./results/10TweetPopulaireAvecTagPopulaire.txt', stresult, function (err) {
 			if (err) throw err;
 			console.log("Un fichier (10TweetPopulaireAvecTagPopulaire.txt) comportant le résultat de la requête a été généré !");
 		});
@@ -65,7 +66,7 @@ exports.module = require('caporal')
 	
 		});
 
-		fs.writeFile('10AuteursPopulaireAvecTagPopulaire.txt', stresult, function (err) {
+		fs.writeFile('./results/10AuteursPopulaireAvecTagPopulaire.txt', stresult, function (err) {
 			if (err) throw err;
 			console.log("Un fichier (10AuteursPopulaireAvecTagPopulaire.txt) comportant le résultat de la requête a été généré !");
 		});
@@ -87,7 +88,7 @@ exports.module = require('caporal')
 		});
 		stresult = stresult.substring(0,stresult.length-1);
 
-		fs.writeFile('relatedHashtags.txt', stresult, function (err) {
+		fs.writeFile('./results/relatedHashtags.txt', stresult, function (err) {
 			if (err) throw err;
 			console.log("Un fichier (relatedHashtags.txt) comportant le résultat de la requête a été généré !");
 		});
@@ -133,7 +134,7 @@ exports.module = require('caporal')
 			stresult = stresult.concat("===========================");
 		});
 
-		fs.writeFile('tweetsCorrespondant.txt', stresult, function (err) {
+		fs.writeFile('./results/tweetsCorrespondant.txt', stresult, function (err) {
 			if (err) throw err;
 			console.log("Un fichier (tweetsCorrespondant.txt) comportant le résultat de la requête a été généré !");
 		});
@@ -153,7 +154,7 @@ exports.module = require('caporal')
 		let stresult = "Le liste des Tweets dans un format structuré :";
 		stresult = stresult.concat("\r\n" + allTweet);
 		
-		fs.writeFile('listeTweets.txt', stresult, function (err) {
+		fs.writeFile('./results/listeTweets.txt', stresult, function (err) {
 			if (err) throw err;
 			console.log("Un fichier (listeTweets.txt) comportant le résultat de la requête a été généré !");
 		});
@@ -175,7 +176,7 @@ exports.module = require('caporal')
 	stresult = stresult.substring(0,stresult.length-1);
 	stresult = stresult.concat("]},\"mark\": \"bar\",\"encoding\": {\"x\": {\"field\": \"a\",\"type\": \"nominal\",\"axis\": {\"title\": \"Auteurs influents\"}},\"y\": {\"aggregate\": \"average\",\"field\": \"b\",\"type\": \"quantitative\",\"axis\": {\"title\": \"Nombre de tweets\"}}},\"config\": {\"axisY\": {\"minExtent\": 30}}};vegaEmbed(\"#vis\", vlspec);</script></body></html>");
 
-	fs.writeFile('visuAuteurs.html', stresult, function (err) {
+	fs.writeFile('./results/visuAuteurs.html', stresult, function (err) {
 	    if (err) throw err;
 	    console.log("Une page HTML (visuAuteurs.html) comportant le résultat de la requête a été générée !");
 	})
@@ -197,7 +198,7 @@ exports.module = require('caporal')
 	
 		});
 
-		fs.writeFile('10TagPopulaire.txt', stresult, function (err) {
+		fs.writeFile('./results/10TagPopulaire.txt', stresult, function (err) {
 			if (err) throw err;
 			console.log("Un fichier (10TagPopulaire.txt) comportant le résultat de la requête a été généré !");
 		});
@@ -206,10 +207,15 @@ exports.module = require('caporal')
 	.command("visualize10TagPop", "Visualise le top 10 des HashTags ayant été le plus retweeté")
 	.action(function (args, options, logger){
 		spec_9_2.vizualizeTopTweets();
-	});
+	})
 
 
-	
 
+	//spec_10
+	.command("getConseil", "Donne une petite indication pour savoir si le HashTag que vous comptez utiliser va marcher.")
+	.argument("<hashtag>", "Entrez le HashTag que vous comptez utiliser. Ex : eaw18")
+	.action(function (args, options, logger){
+		spec_10.getHashTagRT(args.hashtag);
+	})
 	
 program.parse(process.argv);
