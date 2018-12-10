@@ -142,32 +142,22 @@ exports.module = require('caporal')
 	
 
 	//spec_8
-	.command("getListeTweetSurFichier", "Création d'un fichier textes où son répertoriés les tweets classés par hashtag")
+	.command("getListeTweetSurFichier", "Création d'un fichier textes où son répertoriés les tweets")
 	.action(function (args, options, logger){
-		rs = spec_8.getListeTweetSurFichier();
-		console.log("Le liste des tweets rangés par hashtags :");
-		var allTweet = Tweets.getAllTweets();
-		var allHash = Tweets.getAllHashTags(allTweet);
-		for(var k = 0; k < allHash.length; k++){
-			console.log("\nHashtags : " + allHash[k] + "\n");
-			console.log(rs[k]);
-		}
+		allTweets = Tweets.getAllTweets();
+		allTweet = spec_8.getListeTweetSurFichier();
+		console.log("Le liste des tweets dans un format structuré :");
+		console.log(allTweets);		
 
-		let stresult = "Le liste des tweets rangés par hashtags :";
-		rs.forEach(function(value, key)  {
-			stresult = stresult.concat("\r\nHashtag : ");
-			stresult = stresult.concat(allHash[key]);
-			stresult = stresult.concat("\r\n\r\n");
-			stresult = stresult.concat(value);
-			stresult = stresult.concat("\r\n\r\n");
-	
-		});
-
-		fs.writeFile('ListeTweetsParHashtag.txt', stresult, function (err) {
+		let stresult = "Le liste des tweets dans un format structuré :";
+		stresult = stresult.concat("\r\n" + allTweet);
+		
+		fs.writeFile('ListeTweets.txt', stresult, function (err) {
 			if (err) throw err;
 			console.log("Un fichier comportant le résultat de la requête a été généré !");
 		});
 	})
+
 
 	//spec_9
 	.command("visualizeAuteurPopAvecTagPop", "Visualise le top 10 des auteurs de tweets comportant le hashtag ayant été le plus retweeté")
