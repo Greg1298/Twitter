@@ -148,8 +148,8 @@ exports.module = require('caporal')
 	.action(function (args, options, logger){
 		allTweets = Tweets.getAllTweets();
 		allTweet = spec_8.getListeTweetSurFichier();
-		console.log("Le liste des Tweets dans un format structuré :");
-		console.log(allTweets);		
+		//console.log("Le liste des Tweets dans un format structuré :");
+		//console.log(allTweets);		
 
 		let stresult = "Le liste des Tweets dans un format structuré :";
 		stresult = stresult.concat("\r\n" + allTweet);
