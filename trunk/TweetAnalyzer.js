@@ -56,7 +56,7 @@ exports.module = require('caporal')
 	.action(function (args, options, logger){
 		rs = spec_3.getAuteurPopulaireAvecTagPopulaire(spec_2.TagPlusPopulaire());
 		console.log(rs);
-		
+
 		let stresult = "Les auteurs associés au HashTag le plus populaire \"" + spec_2.TagPlusPopulaire() + "\" sont :";
 		rs.forEach(function(value, key)  {
 			stresult = stresult.concat("\r\n");
@@ -64,7 +64,7 @@ exports.module = require('caporal')
 			stresult = stresult.concat(",");
 			stresult = stresult.concat(value);
 			stresult = stresult.concat(",");
-	
+
 		});
 
 		fs.writeFile('./results/10AuteursPopulaireAvecTagPopulaire.txt', stresult, function (err) {
@@ -94,7 +94,7 @@ exports.module = require('caporal')
 			console.log("Un fichier (relatedHashtags.txt) comportant le résultat de la requête a été généré !");
 		});
     })
-    
+
     //spec_5
 	.command("getLocatedTweets", "Retourne le nombre de Tweets ayant été postés depuis la localisation saisie.")
 	.argument("<location>", "Entrez une localisation pour connaître le nombre de Tweets postés depuis celle-ci. Ex : England")
@@ -112,10 +112,14 @@ exports.module = require('caporal')
 		var allHash = Tweets.getAllHashTags(allTweet);
 		for(var k = 0; k < allHash.length; k++){
 			console.log("\nHashTags : " + allHash[k] + "\n");
-			console.log(rs[k]);
+			for(var i=0;i<rs[k].length;i++){
+				console.log('\x1b[1;35m%s\x1b[0m',rs[k][i]);
+				console.log();
+			}
+			//console.log(rs[k]);
 		}
 	})
-	
+
 	//spec_7
 	.command("getTweet", "Retourne les Tweets correspondant aux critères.")
 	.argument("[hashtag]", "Entrer un HashTag ou X pour ne pas rentrer de Hashtag.")
@@ -142,7 +146,7 @@ exports.module = require('caporal')
 
 
 	})
-	
+
 
 	//spec_8
 	.command("getListeTweetSurFichier", "Création d'un fichier texte où sont répertoriés les Tweets")
@@ -150,11 +154,11 @@ exports.module = require('caporal')
 		allTweets = Tweets.getAllTweets();
 		allTweet = spec_8.getListeTweetSurFichier();
 		//console.log("Le liste des Tweets dans un format structuré :");
-		//console.log(allTweets);		
+		//console.log(allTweets);
 
 		let stresult = "Le liste des Tweets dans un format structuré :";
 		stresult = stresult.concat("\r\n" + allTweet);
-		
+
 		fs.writeFile('./results/listeTweets.txt', stresult, function (err) {
 			if (err) throw err;
 			console.log("Un fichier (listeTweets.txt) comportant le résultat de la requête a été généré !");
@@ -165,7 +169,7 @@ exports.module = require('caporal')
 	//spec_9
 	.command("visualize10AuteurPopAvecTagPop", "Visualise le top 10 des auteurs de Tweets comportant le HashTag ayant été le plus retweeté")
 	.action(function (args, options, logger){
-		
+
 	stresult = stresult.concat("<!DOCTYPE html><head><title>Visualisation Tweets</title><meta charset=\"utf-8\"><script src=\"https://cdn.jsdelivr.net/npm/vega@4.3.0/build/vega.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc10/build/vega-lite.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/vega-embed@3.24.1/build/vega-embed.js\"></script><style media=\"screen\">.vega-actions a {margin-right: 5px;}</style></head><body><h1>La visualisation des 10 auteurs les plus influents</h1><div id=\"vis\"></div><script>var vlspec = {\"$schema\": \"https://vega.github.io/schema/vega-lite/v3.json\",\"data\": {\"values\": [");
 
 	rs = spec_3.getAuteurPopulaireAvecTagPopulaire(spec_2.TagPlusPopulaire());
@@ -181,14 +185,14 @@ exports.module = require('caporal')
 	    if (err) throw err;
 	    console.log("Une page HTML (visuAuteurs.html) comportant le résultat de la requête a été générée !");
 	})
-		
+
 	})
 
 	.command("get10TagPopulaire", "Consulter le top 10 des HashTags ayant été le plus retweeté")
 	.action(function (args, options, logger){
 		rs = spec_9_1.get10TagPopulaire(spec_2.TagPlusPopulaire());
 		console.log(rs);
-		
+
 		let stresult = "Le top 10 des HashTags ayant été le plus retweeté :";
 		rs.forEach(function(value, key)  {
 			stresult = stresult.concat("\r\n");
@@ -196,7 +200,7 @@ exports.module = require('caporal')
 			stresult = stresult.concat(",");
 			stresult = stresult.concat(value);
 			stresult = stresult.concat(",");
-	
+
 		});
 
 		fs.writeFile('./results/10TagPopulaire.txt', stresult, function (err) {
@@ -218,5 +222,5 @@ exports.module = require('caporal')
 	.action(function (args, options, logger){
 		spec_10.getHashTagRT(args.hashtag);
 	})
-	
+
 program.parse(process.argv);
