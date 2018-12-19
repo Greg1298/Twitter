@@ -123,12 +123,12 @@ exports.module = require('caporal')
 	//spec_7
 	.command("getTweet", "Retourne les Tweets correspondant aux critères.")
 	.argument("[hashtag]", "Entrer un HashTag ou X pour ne pas rentrer de Hashtag.")
-    .argument("[dateDebut]", "Entrer la date du début de la période recherchée au format AAAA/MM/JJ/HH/mm/ss ou X pour ne pas rentrer de date.")
-    .argument("[dateFin]", "Entrer la date de fin de la période recherchée au format AAAA/MM/JJ/HH/mm/ss ou X pour ne pas rentrer de date.")
-    .argument("[auteur]", "Entrer l'auteur ou X pour ne pas rentrer d'auteur.")
+  .argument("[dateDebut]", "Entrer la date du début de la période recherchée au format AAAA/MM/JJ/HH/mm/ss ou X pour ne pas rentrer de date.")
+  .argument("[dateFin]", "Entrer la date de fin de la période recherchée au format AAAA/MM/JJ/HH/mm/ss ou X pour ne pas rentrer de date.")
+  .argument("[auteur]", "Entrer l'auteur ou X pour ne pas rentrer d'auteur.")
 	.action(function (args, options, logger){
 		rs = spec_7.getTweet(args.hashtag, args.dateDebut, args.dateFin, args.auteur);
-		console.log("Les Tweets associés au HashTag \"" + args.hashtag + "\" entre le "+ args.dateDebut + " et "+ args.dateFin + "et écrit par " + args.auteur +" sont :");
+		console.log("Les Tweets associés au HashTag \"" + args.hashtag + "\" entre le "+ args.dateDebut + " et "+ args.dateFin + " et écrit par " + args.auteur +" sont :");
 		console.log(rs);
         let stresult = "Les Tweets qui corespondent :";
 		rs.forEach(element => {
