@@ -7,6 +7,27 @@ function getTweet(tag, debut, fin, auteur) {
     var tweetDeb = debut.split('/');
     var tweetFin = fin.split('/');
 
+    try{
+        if(tweetDeb.length != 6 || tweetFin.length != 6){
+            throw "Nombre invalide de paramètres";
+        }
+        for(var i=0;i<tweetDeb.length;i++){
+            if(tweetDeb[i] == ""){
+                throw "Composant de date invalide à l'indice " + i;
+            }
+        }
+        for(var i=0;i<tweetFin.length;i++){
+            if(tweetFin[i] == ""){
+                throw "Composant de date invalide à l'indice " + i;
+            }
+        }
+    }
+
+    catch(e){
+        console.log('\x1b[31m%s\x1b[0m', e);
+        process.exit();
+    }
+
     //On convertit les dates en secondes
     var timeSecondDeb = parseInt(tweetDeb[5]) + 60*parseInt(tweetDeb[4]) + 3600*parseInt(tweetDeb[3]) + 86400*parseInt(tweetDeb[2]) + 2628000*parseInt(tweetDeb[1]) + 31540000*parseInt(tweetDeb[0]-2000);
 
