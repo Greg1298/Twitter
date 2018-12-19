@@ -79,20 +79,29 @@ exports.module = require('caporal')
 
 	.action(function (args, options, logger){
 		rs = spec_4.getRelatedHashtags(args.hashtag);
-		rs.sort();
-		console.log("Les HashTags associés au HashTag \"" + args.hashtag + "\" sont :");
-		console.log(rs);
+		if(rs.length>0){
+			rs.sort();
+			console.log("Les HashTags associés au HashTag \"" + args.hashtag + "\" sont :");
+			console.log(rs);
 
-		let stresult = "Les HashTags associés au HashTag \"" + args.hashtag + "\" sont :";
-		rs.forEach(element => {
-			stresult = stresult.concat("\r\n", element, ",");
-		});
-		stresult = stresult.substring(0,stresult.length-1);
+			let stresult = "Les HashTags associés au HashTag \"" + args.hashtag + "\" sont :";
+			rs.forEach(element => {
+				stresult = stresult.concat("\r\n", element, ",");
+			});
+			stresult = stresult.substring(0,stresult.length-1);
 
-		fs.writeFile('./results/relatedHashtags.txt', stresult, function (err) {
-			if (err) throw err;
-			console.log("Un fichier (relatedHashtags.txt) comportant le résultat de la requête a été généré !");
-		});
+			fs.writeFile('./results/relatedHashtags.txt', stresult, function (err) {
+				if (err) throw err;
+				console.log("Un fichier (relatedHashtags.txt) comportant le résultat de la requête a été généré !");
+			});
+		}
+		else{
+			console.log("Le hashtag donné ne correspond à aucun tweet, le fichier n'a pas été créé");
+			try{
+				fs.unlinkSync('./results/relatedHashtags.txt');
+			}
+			catch(e){}
+		}
     })
 
     //spec_5
