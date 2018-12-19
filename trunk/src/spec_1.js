@@ -13,6 +13,26 @@ function getNbTweet(tag, debut, fin){
     
     var timeSecondFin = parseInt(tweetFin[5]) + 60*parseInt(tweetFin[4]) + 3600*parseInt(tweetFin[3]) + 86400*parseInt(tweetFin[2]) + 2628000*parseInt(tweetFin[1]) + 31540000*parseInt(tweetFin[0]-2000);
     
+    try{
+        if(tweetDeb.length != 6 || tweetFin.length != 6){
+            throw "Nombre invalide de paramètres";
+        }
+        for(var i=0;i<tweetDeb.length;i++){
+            if(tweetDeb[i] == ""){
+                throw "Composant de date invalide à l'indice " + i;
+            }
+        }
+        for(var i=0;i<tweetFin.length;i++){
+            if(tweetFin[i] == ""){
+                throw "Composant de date invalide à l'indice " + i;
+            }
+        }
+    }
+
+    catch(e){
+        console.log('\x1b[31m%s\x1b[0m', e);
+        process.exit();
+    }
     var x = 0;
     var tweetSelected = [];
     
@@ -39,7 +59,6 @@ function getNbTweet(tag, debut, fin){
         let seconde = tweetDeHeure[2];
         
         var timeSeconde = parseInt(seconde) + 60*parseInt(minute) + 3600*parseInt(heure) + 86400*parseInt(jour) + 2628000*parseInt(moisNum) + 31540000*parseInt(annee-2000);
-        
         var tweetTags = [];
         tweetTags[i] = allTweets[i].hashtags.split(' '); 
         
@@ -54,7 +73,10 @@ function getNbTweet(tag, debut, fin){
         
     }
     
-    var nbTweet = tweetSelected.length;
-    return nbTweet;
+    var ret = [];
+    for(var i=0;i<tweetSelected.length;i++){
+        ret.push(tweetSelected[i].text);
+    }
+    return ret;
 }
 module.exports.getNbTweet = getNbTweet;

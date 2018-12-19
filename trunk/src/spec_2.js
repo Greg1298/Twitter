@@ -69,37 +69,37 @@ return maxtag;
 function get10TweetPopulaireAvecTagPopulaire(maxtag){
 //chercher 10 tweet plus populaire
 //recrire la function sert a function sort()
-function objectSort(property)
-{
-return function(a,b){
-	return b[property] - a[property];
-}
-}
-
-
-//initialiser
-var resultats = new Array();
-var tweetavecmaxtag = new Array();
-
-//met tous les tweet ayant le tag plus populaire dans le tableau
-for(var k = 0; k < allTweets.length; k++){
-
-	ht = allTweets[k].hashtags;
-	if(ht === maxtag){
-		tweetavecmaxtag.push(allTweets[k]);
+	function objectSort(property)
+	{
+		return function(a,b){
+			return b[property] - a[property];
+		}
 	}
 
-}
-//sort
-tweetavecmaxtag.sort(objectSort('retweet_count'));
 
-//choisi les 10 plus populaire dans le resultat
-for(var i = 0; i <= 9; i++){
-	resultats[i] = tweetavecmaxtag[i];
-}
-//console.log(resultats);
+	//initialiser
+	var resultats = new Array();
+	var tweetavecmaxtag = new Array();
 
-return resultats;
+	//met tous les tweet ayant le tag plus populaire dans le tableau
+	for(var k = 0; k < allTweets.length; k++){
+
+		ht = allTweets[k].hashtags;
+		if(ht === maxtag && allTweets[k].reweet_id == ""){
+			tweetavecmaxtag.push(allTweets[k]);
+		}
+
+	}
+	//sort
+	tweetavecmaxtag.sort(objectSort('retweet_count'));
+
+	//choisi les 10 plus populaire dans le resultat
+	for(var i = 0; i <= 9; i++){
+		resultats[i] = tweetavecmaxtag[i];
+	}
+	//console.log(resultats);
+
+	return resultats;
 }
 
 module.exports.get10TweetPopulaireAvecTagPopulaire = get10TweetPopulaireAvecTagPopulaire;
