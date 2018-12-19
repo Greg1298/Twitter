@@ -13,11 +13,11 @@ function getHashTagRT(hashtag){
             HashTagsRTCount[element] = 0;
         });
         HashTagsRTCount = HashTagsRTCount.sort();
-        
+
         AllTweets.forEach(element => {
             ht = element.hashtags;
             tabHashTagsduntweet = ht.split(" ");
-        
+
             tabHashTagsduntweet.forEach(function(unhashtagduntweet) {
                 HashTagsRTCount[unhashtagduntweet.toLowerCase()] = HashTagsRTCount[unhashtagduntweet.toLowerCase()] + parseInt(element.retweet_count);
             });
@@ -25,6 +25,9 @@ function getHashTagRT(hashtag){
         console.log("Le HashTag " + hashtag + " a été retweeté " + HashTagsRTCount[hashtag.toLowerCase()] + " fois.");
         if(HashTagsRTCount[hashtag.toLowerCase()] < 5){
             console.log("Le succès n'est pas garanti...");
+        }
+        else if(HashTagsRTCount[hashtag.toLowerCase()] < 10){
+          console.log("Le succès sera mitigé");
         }
         else{
             console.log("Ça va marcher c'est sur !");
