@@ -18,14 +18,15 @@ exports.module = require('caporal')
 
 
 	//spec_1
-	.command("getNbTweet", "Retourne le nombre de Tweet comportant le HashTag choisi.")
+	.command("getTweetsHT", "Retourne les tweets et leur nombre comportant le HashTag choisi.")
 	.argument("<hashtag>", "Entrez un HashTag dont vous voulez connaître le nombre de Tweet.")
     .argument("<dateDebut>", "Entrer la date du début de la période recherchée au format AAAA/MM/JJ/HH/mm/ss.")
     .argument("<dateFin>", "Entrer la date de fin de la période recherchée au format AAAA/MM/JJ/HH/mm/ss.")
 	.action(function (args, options, logger){
 		rs = spec_1.getNbTweet(args.hashtag, args.dateDebut, args.dateFin);
 		console.log("Le nombre de Tweets associés au HashTag \"" + args.hashtag + "\" entre le "+ args.dateDebut +" et "+ args.dateFin + " sont :");
-		console.log(rs);
+		for(var i=0;i<rs.length;i++){console.log(rs[i]);console.log("\n")}
+		console.log("Il y a " + rs.length + " tweets");
 
 	})
 
@@ -39,9 +40,9 @@ exports.module = require('caporal')
 		rs.forEach(element => {
 			stresult = stresult.concat("\r\n");
 			stresult = stresult.concat(element.tweet_url);
-			stresult = stresult.concat(",");
-			stresult = stresult.concat(element.retweet_count);
-			stresult = stresult.concat(",");
+			//stresult = stresult.concat(",");
+			//stresult = stresult.concat(element.retweet_count);
+			//stresult = stresult.concat(",");
 		});
 
 		fs.writeFile('./results/10TweetPopulaireAvecTagPopulaire.txt', stresult, function (err) {
@@ -148,8 +149,8 @@ exports.module = require('caporal')
 	.action(function (args, options, logger){
 		allTweets = Tweets.getAllTweets();
 		allTweet = spec_8.getListeTweetSurFichier();
-		//console.log("Le liste des Tweets dans un format structuré :");
-		//console.log(allTweets);		
+		console.log("Le liste des Tweets dans un format structuré :");
+		console.log(allTweets);		
 
 		let stresult = "Le liste des Tweets dans un format structuré :";
 		stresult = stresult.concat("\r\n" + allTweet);
