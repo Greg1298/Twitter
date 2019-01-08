@@ -104,5 +104,3 @@ function get10TweetPopulaireAvecTagPopulaire(maxtag){
 
 module.exports.get10TweetPopulaireAvecTagPopulaire = get10TweetPopulaireAvecTagPopulaire;
 module.exports.TagPlusPopulaire = TagPlusPopulaire;
-
-		

@@ -16,6 +16,10 @@ for(var k = 0; k < allTweets.length; k++){
 
 	// On récupère le nom des tweet
 	auteur = allTweets[k].user_name;
+  auteurList = auteur.split(" @");
+	auteur = auteurList [0];
+	auteurList = auteur.split(" (@");
+	auteur = auteurList [0];
 
 	//On sépare tous les HashTags et les range dans un tableau
 	tabHashTagsduntweet = ht.split(" ");
@@ -56,24 +60,19 @@ for(var k = 0; k < allTweets.length; k++){
 
 var Auteurtop10 = new Map();
 for(var i = 0; i <= 9 ; i++){
-	maxpop = 0;
-	maxauteur ="";
-TagsChanqueAuteur.forEach(function(value, key){
-	if(value > maxpop){
-		maxpop = value;
-		maxauteur = key;
-	}
-});
-Auteurtop10.set(maxauteur,maxpop);
-TagsChanqueAuteur.delete(maxauteur);
+		maxpop = 0;
+		maxauteur ="";
+	TagsChanqueAuteur.forEach(function(value, key){
+		if(value > maxpop){
+			maxpop = value;
+			maxauteur = key;
+		}
+	});
+	Auteurtop10.set(maxauteur,maxpop);
+	TagsChanqueAuteur.delete(maxauteur);
 }
 
 return Auteurtop10;
 }
 
 module.exports.getAuteurPopulaireAvecTagPopulaire = getAuteurPopulaireAvecTagPopulaire;
-
-
-	
-
-		

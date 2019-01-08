@@ -31,7 +31,7 @@ exports.module = require('caporal')
 	})
 
 	//spec_2
-	.command("get10TweetPopulaireAvecTagPopulaire", "Consulter le top 10 des Tweets comportant le HashTag ayant été le plus retweeté")
+	.command("10Tweet,TagPopulaire", "Consulter le top 10 des Tweets comportant le HashTag ayant été le plus retweeté")
 	.action(function (args, options, logger){
 		rs = spec_2.get10TweetPopulaireAvecTagPopulaire(spec_2.TagPlusPopulaire());
 		console.log(rs);
@@ -52,7 +52,7 @@ exports.module = require('caporal')
 	})
 
 	//spec_3
-	.command("getAuteurPopulaireAvecTagPopulaire", "Consulter le top 10 des auteurs de Tweets comportant le HashTag ayant été le plus retweeté")
+	.command("getAuteur,TagPopulaire", "Consulter le top 10 des auteurs de Tweets comportant le HashTag ayant été le plus retweeté")
 	.action(function (args, options, logger){
 		rs = spec_3.getAuteurPopulaireAvecTagPopulaire(spec_2.TagPlusPopulaire());
 		console.log(rs);
@@ -176,19 +176,28 @@ exports.module = require('caporal')
 
 
 	//spec_9
-	.command("visualize10AuteurPopAvecTagPop", "Visualise le top 10 des auteurs de Tweets comportant le HashTag ayant été le plus retweeté")
+	.command("visualize10Auteur,TagPop", "Visualise le top 10 des auteurs de Tweets comportant le HashTag ayant été le plus retweeté")
 	.action(function (args, options, logger){
 
 	stresult = stresult.concat("<!DOCTYPE html><head><title>Visualisation Tweets</title><meta charset=\"utf-8\"><script src=\"https://cdn.jsdelivr.net/npm/vega@4.3.0/build/vega.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc10/build/vega-lite.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/vega-embed@3.24.1/build/vega-embed.js\"></script><style media=\"screen\">.vega-actions a {margin-right: 5px;}</style></head><body><h1>La visualisation des 10 auteurs les plus influents</h1><div id=\"vis\"></div><script>var vlspec = {\"$schema\": \"https://vega.github.io/schema/vega-lite/v3.json\",\"data\": {\"values\": [");
 
 	rs = spec_3.getAuteurPopulaireAvecTagPopulaire(spec_2.TagPlusPopulaire());
+	rs.sortOn = function(value){
+    this.sort(function(a, b){
+        if(a[value] < b[value]){
+            return -1;
+        }else if(a[value] > b[key]){
+            return 1;
+        }
+        return 0;
+    });
+}
 
 	rs.forEach(function(value, key)  {
 	    stresult = stresult.concat("{\"a\": \"" + key + "\", \"b\": " + value + "},");
 	});
-
 	stresult = stresult.substring(0,stresult.length-1);
-	stresult = stresult.concat("]},\"mark\": \"bar\",\"encoding\": {\"x\": {\"field\": \"a\",\"type\": \"nominal\",\"axis\": {\"title\": \"Auteurs influents\"}},\"y\": {\"aggregate\": \"average\",\"field\": \"b\",\"type\": \"quantitative\",\"axis\": {\"title\": \"Nombre de tweets\"}}},\"config\": {\"axisY\": {\"minExtent\": 30}}};vegaEmbed(\"#vis\", vlspec);</script></body></html>");
+	stresult = stresult.concat("]},\"mark\": \"bar\",\"encoding\": {\"x\": {\"field\": \"a\",\"type\": \"nominal\",\"sort\": {\"field\": \"Horsepower\"},\"axis\": {\"title\": \"Auteurs influents\"}},\"y\": {\"aggregate\": \"average\",\"field\": \"b\",\"type\": \"quantitative\",\"axis\": {\"title\": \"Nombre de tweets\"}}},\"config\": {\"axisY\": {\"minExtent\": 30}}};vegaEmbed(\"#vis\", vlspec);</script></body></html>");
 
 	fs.writeFile('./results/visuAuteurs.html', stresult, function (err) {
 	    if (err) throw err;
